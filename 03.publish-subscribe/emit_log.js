@@ -5,18 +5,14 @@ const url = 'amqp://localhost'
 async function main() {
   try {
     const connection = await amqp.connect(url)
-
     const channel = await connection.createChannel()
+    const exchange = 'logs'
+    const msg = process.argv.slice(2).join(' ') || 'Hello World!'
 
-    var queue = 'task_queue';
-    var msg = process.argv.slice(2).join(' ') || "Hello World!";
+    channel.assertExchange(exchange, 'fanout', { durable: false })
+    channel.publish(exchange, '', Buffer.from(msg))
 
-    await channel.assertQueue(queue, { durable: true })
-    await channel.sendToQueue(queue, Buffer.from(msg), {
-      persistent: true
-    })
-
-    console.log(`[x] sent ${msg}`)
+    console.log(" [x] Sent %s", msg)
 
     setTimeout(function () {
       connection.close();

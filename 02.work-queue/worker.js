@@ -10,7 +10,8 @@ async function main() {
 
     const queue = 'task_queue';
 
-    await channel.assertQueue(queue, { durable: false })
+    await channel.assertQueue(queue, { durable: true })
+    await channel.prefetch(1);
 
     console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", queue)
 
@@ -20,8 +21,9 @@ async function main() {
       console.log(" [x] Received %s", msg.content.toString());
       setTimeout(function () {
         console.log(" [x] %s Done", msg.content.toString());
+        channel.ack(msg);
       }, secs * 1000);
-    }, { noAck: true });
+    }, { noAck: false });
 
   } catch (error) {
     console.log(`error`, error)
