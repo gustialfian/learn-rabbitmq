@@ -5,9 +5,7 @@ const url = 'amqp://localhost'
 async function main() {
   try {
     const connection = await amqp.connect(url)
-
     const channel = await connection.createChannel()
-
     const queue = 'hello'
 
     await channel.assertQueue(queue, { durable: false })

@@ -1,4 +1,4 @@
-const amqp = require('amqplib');
+const amqp = require('amqplib')
 
 const url = 'amqp://localhost'
 
@@ -17,9 +17,9 @@ async function main() {
     console.log(" [x] Sent %s: '%s'", severity, msg)
 
     setTimeout(function () {
-      connection.close();
+      connection.close()
       process.exit(0)
-    }, 500);
+    }, 500)
   } catch (error) {
     console.log(`error`, error)
   }

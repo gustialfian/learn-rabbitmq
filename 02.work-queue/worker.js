@@ -5,9 +5,7 @@ const url = 'amqp://localhost'
 async function main() {
   try {
     const connection = await amqp.connect(url)
-
     const channel = await connection.createChannel()
-
     const queue = 'task_queue';
 
     await channel.assertQueue(queue, { durable: true })
@@ -24,10 +22,8 @@ async function main() {
         channel.ack(msg);
       }, secs * 1000);
     }, { noAck: false });
-
   } catch (error) {
     console.log(`error`, error)
-
   }
 }
 

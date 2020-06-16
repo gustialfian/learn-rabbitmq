@@ -24,7 +24,6 @@ async function main() {
       connection.close();
       process.exit(0)
     }, 500);
-
   } catch (error) {
     console.log(`error`, error)
   }

@@ -5,14 +5,12 @@ const url = 'amqp://localhost'
 async function main() {
   try {
     const connection = await amqp.connect(url)
-
     const channel = await connection.createChannel()
-
-    var queue = 'hello';
-    var msg = 'Hello world';
+    const queue = 'hello';
+    const msg = 'Hello world';
 
     await channel.assertQueue(queue, { durable: false })
-    await channel.sendToQueue(queue, Buffer.from(msg))
+    channel.sendToQueue(queue, Buffer.from(msg))
 
     console.log(`[x] sent ${msg}`)
 

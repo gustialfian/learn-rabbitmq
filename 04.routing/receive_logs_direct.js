@@ -27,10 +27,7 @@ async function main() {
       if (msg.content) {
         console.log(" [x] %s", msg.content.toString())
       }
-    }, {
-      noAck: true
-    })
-
+    }, { noAck: true })
   } catch (error) {
     console.log(`error`, error)
   }

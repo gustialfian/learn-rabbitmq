@@ -5,14 +5,12 @@ const url = 'amqp://localhost'
 async function main() {
   try {
     const connection = await amqp.connect(url)
-
     const channel = await connection.createChannel()
-
-    var queue = 'task_queue';
-    var msg = process.argv.slice(2).join(' ') || "Hello World!";
+    const queue = 'task_queue';
+    const msg = process.argv.slice(2).join(' ') || "Hello World!";
 
     await channel.assertQueue(queue, { durable: true })
-    await channel.sendToQueue(queue, Buffer.from(msg), {
+    channel.sendToQueue(queue, Buffer.from(msg), {
       persistent: true
     })
 

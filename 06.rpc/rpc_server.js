@@ -25,7 +25,6 @@ async function main() {
         Buffer.from(r.toString()),
         { correlationId: msg.properties.correlationId }
       )
-
       channel.ack(msg)
     })
   } catch (error) {

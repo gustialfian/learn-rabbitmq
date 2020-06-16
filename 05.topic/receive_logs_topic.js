@@ -13,7 +13,7 @@ async function main() {
     const connection = await amqp.connect(url)
     const channel = await connection.createChannel()
 
-    var exchange = 'topic_logs'
+    const exchange = 'topic_logs'
     channel.assertExchange(exchange, 'topic', {
       durable: false
     })
@@ -26,10 +26,7 @@ async function main() {
 
     channel.consume(assertQueue.queue, function (msg) {
       console.log(" [x] %s:'%s'", msg.fields.routingKey, msg.content.toString())
-    }, {
-      noAck: true
-    })
-
+    }, { noAck: true })
 
     console.log(' [*] Waiting for logs. To exit press CTRL+C')
 
